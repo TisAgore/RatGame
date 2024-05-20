@@ -23,22 +23,22 @@ from constants import *
 
 class Display:
     def __init__(self, size: tuple[int, int]):
-        self.__width = size[0]
-        self.__heigth = size[1]
-        self.__surface = pg.display.set_mode(size)
+        self.width = size[0]
+        self.heigth = size[1]
+        self.surface = pg.display.set_mode(size)
         self.__background = None
 
-    @property
-    def width(self):
-        return self.__width
+    # @property
+    # def width(self):
+    #     return self.__width
     
-    @property
-    def heigth(self):
-        return self.__heigth
+    # @property
+    # def heigth(self):
+    #     return self.__heigth
 
-    @property
-    def surface(self):
-        return self.__surface
+    # @property
+    # def surface(self):
+    #     return self.__surface
 
 
 class Game:
@@ -64,7 +64,7 @@ class Game:
     def update_game_world(self, scaled_delta_time):
         # player.update_y_spped()
         # player.change_position(move_to_y=player.y_speed)
-        CollisionDetector.check_collisions()
+        # CollisionDetector.check_collisions()
         # All game logic here, such as moving objects, checking collisions, etc.
         # Example:
         # self.player.update(scaled_delta_time)
@@ -80,10 +80,9 @@ class Game:
 
 if __name__ == '__main__':
     pg.init()
-    main_screen = Display((1500, 900))
-    player = Rat(size=(BLOCK_SIZE, BLOCK_SIZE), position=(70, 70), direction=1)
+    main_screen = Display((DISPLAY_WIDTH, DISPLAY_HEIGHT))
+    player = Rat(size=(BLOCK_SIZE, BLOCK_SIZE), position=(70, 70), direction=RIGHT_DIRECTION)
     clock = pg.time.Clock()
-    # frames = 1
     level = LevelGenerator((main_screen.width//BLOCK_SIZE, main_screen.heigth//BLOCK_SIZE))
     level.generate()
     print(level.get_level())
@@ -102,8 +101,6 @@ if __name__ == '__main__':
         current_state.update(player)
         CollisionDetector.check_collisions()
         # print(player.hitbox.collision_type.get_status_for_player(), player.y_speed)
-        # if frames % 5 == 0:
-        # frames = 1
         main_screen.surface.fill((0, 0, 0))
         # print(player.hitbox.get_position(), player.hitbox.size)
         current_state.draw(main_screen.surface, player)

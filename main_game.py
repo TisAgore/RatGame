@@ -104,7 +104,7 @@ if __name__ == '__main__':
         main_screen.surface.fill((0, 0, 0))
         # print(player.hitbox.get_position(), player.hitbox.size)
         current_state.draw(main_screen.surface, player)
-        LevelDrawer.draw_level(main_screen.surface, level.get_level())
+        LevelView.draw_level(main_screen.surface, level.get_level())
         pg.display.flip()
         clock.tick(60)
     

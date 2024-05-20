@@ -47,13 +47,13 @@ class IdleState(State):
             # if event.key == pg.K_d:
             #         player.hitbox.direction = 1
             if keys[pg.K_d]:
-                player.hitbox.direction = 1
+                player.hitbox.direction = RIGHT_DIRECTION
                 x_speed = MovingComponent(player.hitbox.direction).x_speed
                 return JumpingMovingState(x_speed=x_speed)
             # if event.key == pg.K_a:
             #         player.hitbox.direction = -1
             if keys[pg.K_a]:
-                player.hitbox.direction = -1
+                player.hitbox.direction = LEFT_DIRECTION
                 x_speed = MovingComponent(player.hitbox.direction).x_speed
                 return JumpingMovingState(x_speed=x_speed)
         return self
@@ -69,12 +69,9 @@ class JumpingMovingState(State):
         super().__init__('moving')
         self.y_speed = y_speed
         self.x_speed = x_speed
-        # print(1)
 
     def update(self, player: Rat):
         self.y_speed += GRAVITY_CONSTANT
-        # print(self.y_speed)
-        # player.y_speed == self.jump_height
         player.change_position(move_to_x=self.x_speed, move_to_y=self.y_speed)
 
     def draw(self, display: pg.Surface, player: Rat):
@@ -85,17 +82,16 @@ class JumpingMovingState(State):
         # if event.type == pg.KEYUP:
             # print(event.key)
         if not keys[pg.K_d] and not keys[pg.K_a]:
-            # print(not keys[pg.K_d], not keys[pg.K_a], player.hitbox.collision_type.get_status_for_player())
             if player.hitbox.collision_type.get_status_for_player():
                 return IdleState()
             self.x_speed = 0
             return self
         if keys[pg.K_d]:
-            player.hitbox.direction = 1
+            player.hitbox.direction = RIGHT_DIRECTION
             self.x_speed = MovingComponent(player.hitbox.direction).x_speed
             return self
         if keys[pg.K_a]:
-            player.hitbox.direction = -1
+            player.hitbox.direction = LEFT_DIRECTION
             self.x_speed = MovingComponent(player.hitbox.direction).x_speed
             return self
         return self

@@ -183,7 +183,6 @@ class RatAndBlockCollision(Collision):
         if block_hitbox_y != (player_hitbox_y - 1):
             moving = block_hitbox_y - player_hitbox_y + 1
             player_hitbox.change_y_position(move_to=moving)
-        # cls.set_status_for_player(True)
 
     
     def set_status_for_player(self, status: bool):

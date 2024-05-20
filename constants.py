@@ -1,0 +1,3 @@
+BLOCK_SIZE = 50
+COLORS = {'RED': (255, 0, 0), 'GREEN': (0, 255, 0), 'BLUE': (0, 0, 255)}
+GRAVITY_CONSTANT = 0.15

@@ -1,6 +1,7 @@
 import pygame as pg
 from abc import ABC, abstractmethod
 # from constants import BLOCK_SIZE
+print('AUUUUU')
 
 class Hitbox:
     @abstractmethod

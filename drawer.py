@@ -20,7 +20,5 @@ class LevelDrawer:
         for line in range(len(level)):
             for column in range(column_len):
                 if level[line][column] == 1:
-                    # print(1)
                     block = Block(size=(BLOCK_SIZE, BLOCK_SIZE), position=(BLOCK_SIZE*column, BLOCK_SIZE*line))
-                    # print(block.hitbox.get_position(), block.hitbox.size)
                     ObjectDrawer.draw('GREEN', display, block)

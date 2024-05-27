@@ -1,6 +1,5 @@
 import pygame as pg
 from abc import ABC, abstractmethod
-# from constants import BLOCK_SIZE
 
 class Hitbox:
     @abstractmethod
@@ -33,10 +32,6 @@ class Hitbox:
     def set_position(self, new_pos: tuple[int, int]):
         self.__position = new_pos
         self.__rect = pg.Rect(*new_pos, self.size[0], self.size[1])
-    
-    # @property
-    # def hitbox_type(self):
-    #     return self.__hitbox_type
     
 class StaticHitbox(Hitbox):
     def __init__(self, size: tuple[int, int], position: tuple[int, int], hitbox_type: str):
@@ -89,14 +84,6 @@ class DynamicHitbox(Hitbox):
     def collision_type(self):
         return self.__collision_type
     
-    # @property
-    # def parent(self):
-    #     return self.__parent
-    
-    # @property
-    # def hitbox_type(self):
-    #     return super().hitbox_type
-    
     def get_corners(self):
         return super().get_corners()
 
@@ -128,45 +115,13 @@ class CollisionDetector:
         moving_hitbox = None
         for object in cls.dynamic_objects_on_display:
             moving_hitbox = object
-            # if moving_hitbox is not None:
             corners = moving_hitbox.get_corners()
             collision = moving_hitbox.rect.collidelist(cls.static_objects_rects)
-            # print(moving_hitbox.collision_type.get_status_for_player(), collision, moving_hitbox.rect)
             if collision != -1:
                 object_corners = cls.static_objects_on_display[collision].get_corners()
                 moving_hitbox.collision_type.action(moving_hitbox, corners[1][1], object_corners[2][1])
             else:
                 moving_hitbox.collision_type.set_status_for_player(False)
-            # for object in cls.static_objects_on_display:
-            #     if object.hitbox_type == 'block':
-            #         # object_corners = object.get_corners()
-            #         if (abs(object.get_position()[0] - corners[0][0]) < 1.5 * BLOCK_SIZE) or (abs(object.get_position()[1] - corners[0][1]) < 1.5 * BLOCK_SIZE):
-            #             object_corners = object.get_corners()
-            #             print(moving_hitbox.rect.colliderect(object.rect))
-            #             if moving_hitbox.rect.colliderect(object.rect):
-            #                 print(1)
-            #                 moving_hitbox.collision_type.action(moving_hitbox, corners[1][1], object_corners[2][1])
-            #                 break
-                    # # if corners[0][0] <= object_corners[3][0]:
-                    # #     # print(3)
-                    # #     if corners[0][1] <= object_corners[3][1]:
-                    # #         pass
-                    #         # RatAndBlockCollision.action(moving_hitbox, corners[1][1], object_corners[2][1])
-                    # if corners[1][0] < object_corners[2][0] and corners[3][0] > object_corners[0][0]:
-                    #     # print(corners)
-                    #     # print(corners[1][1], object_corners[2][1])
-                    #     if corners[1][1] >= object_corners[2][1] and corners[0][1] < object_corners[2][1]:
-                    #         moving_hitbox.collision_type.action(moving_hitbox, corners[1][1], object_corners[2][1])
-                    #     elif corners[3][1] >= object_corners[0][1] and corners[0][1] < object_corners[2][1]:
-                    #         print(2)
-                    #         moving_hitbox.collision_type.action(moving_hitbox, corners[3][1], object_corners[0][1])
-                    #     else:
-                    #         moving_hitbox.collision_type.set_status_for_player(False)
-                    # else:
-                    #     moving_hitbox.collision_type.set_status_for_player(False)
-                    #     continue
-                    # break
-                        # moving_hitbox.collision_type.set_status_for_player(False)
 
 
 class Collision(ABC):

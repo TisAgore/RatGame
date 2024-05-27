@@ -81,7 +81,7 @@ class Game:
 if __name__ == '__main__':
     pg.init()
     main_screen = Display((DISPLAY_WIDTH, DISPLAY_HEIGHT))
-    player = Rat(size=(BLOCK_SIZE, BLOCK_SIZE), position=(70, 70), direction=RIGHT_DIRECTION)
+    player = Rat(size=(BLOCK_SIZE-5, BLOCK_SIZE-5), position=(70, 70), direction=Direction.RIGHT_DIRECTION)
     clock = pg.time.Clock()
     level = LevelGenerator((main_screen.width//BLOCK_SIZE, main_screen.heigth//BLOCK_SIZE))
     level.generate()

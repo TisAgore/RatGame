@@ -1,17 +1,17 @@
 import pygame as pg
 from entities_and_objects import Block, Entity
 # from level_generator import LevelGenerator
-from constants import BLOCK_SIZE, COLORS
+from constants import BLOCK_SIZE, Colors
 
 class EntityView:
     @staticmethod
     def draw(color: tuple[int, int, int], display: pg.Surface, entity: Entity):
-        pg.draw.rect(display, COLORS[color], (*entity.hitbox.get_position(), *entity.hitbox.size), 6, 1)
+        pg.draw.rect(display, Colors.COLORS[color], (*entity.hitbox.get_position(), *entity.hitbox.size), 6, 1)
 
 class ObjectView:
     @staticmethod
     def draw(color: tuple[int, int, int], display: pg.Surface, object: Block):
-        pg.draw.rect(display, COLORS[color], (*object.hitbox.get_position(), *object.hitbox.size))
+        pg.draw.rect(display, Colors.COLORS[color], (*object.hitbox.get_position(), *object.hitbox.size))
 
 class LevelView:
     @staticmethod

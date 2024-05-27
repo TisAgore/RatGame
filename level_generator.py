@@ -14,7 +14,7 @@ class LevelGenerator:
 
     def generate(self):
         # level = 
-        chance = 0.69
+        chance = 0.76
         # chance_for_row = 1
         for line in range(3, self.__size[1]):
             for column in range(1, self.__size[0]):
@@ -24,7 +24,7 @@ class LevelGenerator:
                             rand_int = np.random.random()
                             row_length = 0
                             # while rand_int > (1 - chance_for_row + 0.15 * row_length):
-                            while rand_int > 0.32 * row_length:
+                            while rand_int > 0.30 * row_length:
                                 if column+row_length < self.__size[0]:
                                     if self.__level[line - 1][column+row_length] == 0 and (self.__level[line - 1][column+row_length+1] == 0 or column+row_length+1 == self.__size[0]):
                                         self.__level[line][column+row_length] = 1
@@ -33,7 +33,3 @@ class LevelGenerator:
                                         break
                                 else:
                                     break
-
-# lvl = LevelGenerator((30, 30))
-# lvl.generate()
-# print(lvl.get_level())

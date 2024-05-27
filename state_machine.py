@@ -1,8 +1,8 @@
 import pygame as pg
 from abc import ABC, abstractmethod
 from entities_and_objects import Rat
-from drawer import EntityDrawer
-from constants import GRAVITY_CONSTANT, RIGHT_DIRECTION, LEFT_DIRECTION
+from drawer import EntityView
+from constants import GRAVITY_CONSTANT, Direction
 
 class MovingComponent:
     def __init__(self, direction: int):
@@ -35,25 +35,25 @@ class IdleState(State):
 
     def handle_input(self, event: pg.event.Event, player: Rat):
         keys = pg.key.get_pressed()
-        if not player.hitbox.collision_type.get_status_for_player():
+        if not player.hitbox.collision_type.above_collision_status:
             y_speed = 0
             return JumpingMovingState(y_speed=y_speed)
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_SPACE:
-                # print(1)
+                print(5)
                 y_speed = JumpingComponent().y_speed
                 # print(y_speed)
                 return JumpingMovingState(y_speed=y_speed)
             # if event.key == pg.K_d:
             #         player.hitbox.direction = 1
             if keys[pg.K_d]:
-                player.hitbox.direction = RIGHT_DIRECTION
+                player.hitbox.direction = Direction.RIGHT_DIRECTION
                 x_speed = MovingComponent(player.hitbox.direction).x_speed
                 return JumpingMovingState(x_speed=x_speed)
             # if event.key == pg.K_a:
             #         player.hitbox.direction = -1
             if keys[pg.K_a]:
-                player.hitbox.direction = LEFT_DIRECTION
+                player.hitbox.direction = Direction.LEFT_DIRECTION
                 x_speed = MovingComponent(player.hitbox.direction).x_speed
                 return JumpingMovingState(x_speed=x_speed)
         return self
@@ -62,7 +62,7 @@ class IdleState(State):
         return self
 
     def draw(self, display: pg.Surface, player: Rat):
-        EntityDrawer.draw('RED', display, player)
+        EntityView.draw('RED', display, player)
 
 class JumpingMovingState(State):
     def __init__(self, y_speed: int = 0, x_speed: int = 0):
@@ -75,18 +75,22 @@ class JumpingMovingState(State):
         self.y_speed += GRAVITY_CONSTANT
         # print(self.y_speed)
         # player.y_speed == self.jump_height
+        # print(player.hitbox.get_position())
         player.change_position(move_to_x=self.x_speed, move_to_y=self.y_speed)
+        # print(player.hitbox.get_position())
 
     def draw(self, display: pg.Surface, player: Rat):
-        EntityDrawer.draw('RED', display, player)
+        EntityView.draw('RED', display, player)
 
     def handle_input(self, event: pg.event, player: Rat):
         keys = pg.key.get_pressed()
         # if event.type == pg.KEYUP:
             # print(event.key)
+        if player.hitbox.collision_type.below_collision_status:
+            self.y_speed = 0
+            return self
         if not keys[pg.K_d] and not keys[pg.K_a]:
-            # print(not keys[pg.K_d], not keys[pg.K_a], player.hitbox.collision_type.get_status_for_player())
-            if player.hitbox.collision_type.get_status_for_player():
+            if player.hitbox.collision_type.above_collision_status:
                 return IdleState()
             self.x_speed = 0
             return self

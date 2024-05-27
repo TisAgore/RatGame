@@ -1,25 +1,12 @@
 import pygame as pg
 import sys
 import os
-# from abc import ABC, abstractmethod
 from level_generator import *
 from drawer import *
 from state_machine import *
 from entities_and_objects import *
 from collision import *
-from constants import *
 
-# class Rule(ABC):
-#     @abstractmethod
-#     def apply_rule():
-#         pass
-
-# class GravityRule(Rule):
-#     def __init__(self):
-#         self.__GRAVITY_CONSTANT = GRAVITY_CONSTANT
-
-#     def apply_rule(self, speed):
-#         return speed - self.__GRAVITY_CONSTANT
 
 class Display:
     def __init__(self, size: tuple[int, int]):
@@ -27,18 +14,6 @@ class Display:
         self.heigth = size[1]
         self.surface = pg.display.set_mode(size)
         self.__background = None
-
-    # @property
-    # def width(self):
-    #     return self.__width
-    
-    # @property
-    # def heigth(self):
-    #     return self.__heigth
-
-    # @property
-    # def surface(self):
-    #     return self.__surface
 
 
 class Game:
@@ -100,9 +75,7 @@ if __name__ == '__main__':
         print(current_state)
         current_state.update(player)
         CollisionDetector.check_collisions()
-        # print(player.hitbox.collision_type.get_status_for_player(), player.y_speed)
         main_screen.surface.fill((0, 0, 0))
-        # print(player.hitbox.get_position(), player.hitbox.size)
         current_state.draw(main_screen.surface, player)
         LevelDrawer.draw_level(main_screen.surface, level.get_level())
         pg.display.flip()

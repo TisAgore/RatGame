@@ -1,6 +1,5 @@
 import pygame as pg
 from entities_and_objects import Block, Entity
-# from level_generator import LevelGenerator
 from constants import BLOCK_SIZE, COLORS
 
 class EntityDrawer:
